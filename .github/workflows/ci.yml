@@ -1,0 +1,25 @@
+name: Node Express GraphQL Template CI
+
+on: push
+
+jobs:
+  build_and_test:
+    name: Build & Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [10.x]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup environment
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: "12"
+      - name: Install dependencies
+        run: yarn install
+      - name: Lint
+        run: yarn lint
+      - name: Build
+        run: yarn build:local
+      - name: Test
+        run: yarn test
